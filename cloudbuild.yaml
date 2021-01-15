@@ -1,0 +1,20 @@
+steps:
+- name: "gcr.io/cloud-builders/docker"
+  args:
+  - build
+  - -t
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:$COMMIT_SHA
+  - -t
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:latest
+  - .
+  waitFor: [ "-" ]
+images: 
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:$COMMIT_SHA
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:latest
+# artifacts:
+#   objects:
+#     location: gs://${_BUCKET_NAME}/
+#     paths: ["swagger/out/js/*.tgz"]
+substitutions:
+  _IMAGE_BASE: eu.gcr.io
+  _BUCKET_NAME: sbs-sdks

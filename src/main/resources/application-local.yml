@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://178.251.45.187:60001/internal_control_app
+    username: paraboly_interviewee
+    password: test_user
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Europe/Istanbul
+server:
+  port: 27000

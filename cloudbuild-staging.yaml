@@ -1,0 +1,44 @@
+steps:
+#- name: maven:3.6.3-openjdk-8
+#  args:
+#    - mvn
+#    - test
+#    - -q
+#- name: "gcr.io/cloud-builders/docker"
+#  args:
+#    - run
+#    - --rm
+#    - -v=/workspace/swagger:/local
+#    - swaggerapi/swagger-codegen-cli:2.4.1
+#    - generate
+#    - -i=/local/swagger.json
+#    - -l=javascript
+#    - -o=/local/out/js
+#    - --additional-properties
+#    - usePromises=true,useE6=true
+#- name: node
+#  dir: swagger/out/js
+#  entrypoint: npm
+#  args: ["install"]
+#- name: node
+#  dir: swagger/out/js
+#  entrypoint: npm
+#  args:
+#    - build
+#- name: node
+#  dir: swagger/out/js
+#  entrypoint: npm
+#  args: ["pack"]
+- name: "gcr.io/cloud-builders/docker"
+  args:
+  - build
+  - -t
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:$COMMIT_SHA
+  - -t
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:staging
+  - .
+images: 
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:$COMMIT_SHA
+  - ${_IMAGE_BASE}/${PROJECT_ID}/internal-control:staging
+substitutions:
+  _IMAGE_BASE: eu.gcr.io
